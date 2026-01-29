@@ -17,31 +17,31 @@ export default function Page() {
     {
       id: 1,
       name: "Wireless Headphones",
-      price: 120,
+      price: 130,
       image: "/Wireless headphones.avif",
     },
     {
       id: 2,
       name: "Smart Watch",
-      price: 180,
+      price: 190,
       image: "/Smart watch.avif",
     },
     {
       id: 3,
       name: "Gaming Mouse",
-      price: 60,
+      price: 70,
       image: "/Gaming mouse.avif",
     },
     {
       id: 4,
       name: "Mechanical Keyboard",
-      price: 140,
+      price: 150,
       image: "/Mechanical keyboard.avif",
     },
     {
       id: 5,
       name: "Bluetooth Speaker",
-      price: 90,
+      price: 100,
       image: "/Bluetooth speaker.avif",
     },
     {
