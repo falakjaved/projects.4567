@@ -1,65 +1,184 @@
-import Image from "next/image";
+/* eslint-disable @next/next/no-img-element */
+"use client";
 
-export default function Home() {
+import { useState } from "react";
+
+type Product = {
+  id: number;
+  name: string;
+  price: number;
+  image: string;
+};
+
+export default function Page() {
+  const [cartCount, setCartCount] = useState<number>(0);
+
+  const products: Product[] = [
+    {
+      id: 1,
+      name: "Wireless Headphones",
+      price: 120,
+      image: "/Wireless headphones.avif",
+    },
+    {
+      id: 2,
+      name: "Smart Watch",
+      price: 180,
+      image: "/Smart watch.avif",
+    },
+    {
+      id: 3,
+      name: "Gaming Mouse",
+      price: 60,
+      image: "/Gaming mouse.avif",
+    },
+    {
+      id: 4,
+      name: "Mechanical Keyboard",
+      price: 140,
+      image: "/Mechanical keyboard.avif",
+    },
+    {
+      id: 5,
+      name: "Bluetooth Speaker",
+      price: 90,
+      image: "/Bluetooth speaker.avif",
+    },
+    {
+      id: 6,
+      name: "USB-C Hub",
+      price: 45,
+      image: "/USB-C Hub.avif",
+    },
+  ];
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+    <main className="text-gray-900">
+
+      {/* Navbar */}
+      <nav className="fixed top-0 w-full bg-white/90 backdrop-blur shadow z-50">
+        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+          <h1 className="text-2xl font-bold text-blue-600">MyShop</h1>
+
+          <div className="flex items-center gap-6">
+            <a href="#home" className="hover:text-blue-600">Home</a>
+            <a href="#products" className="hover:text-blue-600">Products</a>
+            <a href="#about" className="hover:text-blue-600">About</a>
+            <a href="#contact" className="hover:text-blue-600">Contact</a>
+
+            <div className="relative text-lg">
+              🛒
+              {cartCount > 0 && (
+                <span className="absolute -top-2 -right-3 bg-red-600 text-white text-xs px-2 rounded-full">
+                  {cartCount}
+                </span>
+              )}
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      {/* Hero */}
+      <section
+        id="home"
+        className="pt-36 pb-28 bg-linear-to-r from-blue-600 to-indigo-600 text-white text-center"
+      >
+        <h2 className="text-5xl font-bold mb-6">
+          Premium Tech Products
+        </h2>
+        <p className="max-w-xl mx-auto text-lg opacity-90">
+          Upgrade your lifestyle with modern & reliable gadgets.
+        </p>
+        <button className="mt-8 bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100">
+          Explore Products
+        </button>
+      </section>
+
+      {/* Products */}
+      <section id="products" className="py-28 max-w-7xl mx-auto px-6">
+        <h2 className="text-4xl font-bold text-center mb-16">
+          Featured Products
+        </h2>
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {products.map((product) => (
+            <div
+              key={product.id}
+              className="group border rounded-xl p-6 shadow-sm hover:shadow-xl transition"
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+              <img
+                src={product.image}
+                alt={product.name}
+                className="h-44 w-full object-cover rounded-lg mb-6"
+              />
+
+              <h3 className="text-xl font-semibold">
+                {product.name}
+              </h3>
+
+              <p className="text-blue-600 font-bold mt-2">
+                ${product.price}
+              </p>
+
+              <button
+                onClick={() => setCartCount((prev) => prev + 1)}
+                className="mt-6 w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700"
+              >
+                Add to Cart
+              </button>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* About */}
+      <section id="about" className="py-28 bg-gray-100 px-6">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-4xl font-bold mb-6">
+            Why Choose Us?
+          </h2>
+          <p className="text-gray-700 text-lg">
+            We provide high-quality tech products, fast shipping,
+            and customer-first support with secure payments.
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+      </section>
+
+      {/* Contact */}
+      <section id="contact" className="py-28 max-w-4xl mx-auto px-6">
+        <h2 className="text-4xl font-bold text-center mb-12">
+          Get in Touch
+        </h2>
+
+        <form className="space-y-5">
+          <input
+            type="text"
+            placeholder="Full Name"
+            className="w-full border p-4 rounded-lg"
+          />
+          <input
+            type="email"
+            placeholder="Email Address"
+            className="w-full border p-4 rounded-lg"
+          />
+          <textarea
+            placeholder="Message"
+            className="w-full border p-4 rounded-lg h-36"
+          />
+          <button
+            type="submit"
+            className="w-full bg-blue-600 text-white py-4 rounded-lg font-semibold hover:bg-blue-700"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+            Send Message
+          </button>
+        </form>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-gray-900 text-gray-300 py-8 text-center">
+        © {new Date().getFullYear()} MyShop — Built with Next.js
+      </footer>
+
+    </main>
   );
 }
